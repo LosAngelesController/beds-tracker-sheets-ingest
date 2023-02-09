@@ -130,3 +130,4 @@ config.json
 dist/
 ca-certificate.crt
 serviceAccount.json
+*Zone.identifier
