@@ -104,7 +104,8 @@ const rows = await sheet.getRows();
 
 //console.log(rows);
 
- 
+    const arrayOfRowsInsertsToPerform:Array<any> = []
+
   for (const row of rows) {
 
     if (row.lat != null && row.lng != null && row.lat != "" && row.lng != "") {
@@ -114,58 +115,60 @@ const rows = await sheet.getRows();
     console.log(row.lat)
 
 
-
-    await pgclient.query(`INSERT INTO ${generatenameoftable} 
-    (lat,
-      lng, 
-      spa,
-      organization_name,
-      projectname,
-      address,
-      type,
-      total_beds,
-      male_available,
-      female_available,
-      beds_available,
-      last_updated,
-      criteria,
-      contact_info,
-      website) VALUES (
-        $1,
-        $2,
-        $3,
-        $4,
-        $5,
-        $6,
-        $7,
-        $8,
-        $9,
-        $10,
-        $11,
-        $12,
-        $13,
-        $14,
-        $15
-      )`, [
-      row.lat,
-      row.lng,
-      row.spa,
-      row.organization_name,
-      row.projectname,
-      row.address,
-      row.type,
-      cleannumber(row.total_beds),
-      cleannumber(row.male_available),
-      cleannumber(row.female_available),
-      cleannumber(row.beds_available),
-      cleandate(row.last_updated),
-      row.criteria,
-      row.contact_info,
-      row.website
-      ])
+      arrayOfRowsInsertsToPerform.push(pgclient.query(`INSERT INTO ${generatenameoftable} 
+      (lat,
+        lng, 
+        spa,
+        organization_name,
+        projectname,
+        address,
+        type,
+        total_beds,
+        male_available,
+        female_available,
+        beds_available,
+        last_updated,
+        criteria,
+        contact_info,
+        website) VALUES (
+          $1,
+          $2,
+          $3,
+          $4,
+          $5,
+          $6,
+          $7,
+          $8,
+          $9,
+          $10,
+          $11,
+          $12,
+          $13,
+          $14,
+          $15
+        )`, [
+        row.lat,
+        row.lng,
+        row.spa,
+        row.organization_name,
+        row.projectname,
+        row.address,
+        row.type,
+        cleannumber(row.total_beds),
+        cleannumber(row.male_available),
+        cleannumber(row.female_available),
+        cleannumber(row.beds_available),
+        cleandate(row.last_updated),
+        row.criteria,
+        row.contact_info,
+        row.website
+        ]))
+    
     }
 
   }
+
+  await Promise.all(arrayOfRowsInsertsToPerform);
 
   console.log("done inserting to temp table");
 
