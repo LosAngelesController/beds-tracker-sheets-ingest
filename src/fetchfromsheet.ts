@@ -114,7 +114,6 @@ const rows = await sheet.getRows();
 
     console.log(row.lat)
 
-
       arrayOfRowsInsertsToPerform.push(pgclient.query(`INSERT INTO ${generatenameoftable} 
       (lat,
         lng, 
@@ -162,10 +161,8 @@ const rows = await sheet.getRows();
         row.criteria,
         row.contact_info,
         row.website
-        ]))
-    
+        ]))    
     }
-
   }
 
   await Promise.all(arrayOfRowsInsertsToPerform);
