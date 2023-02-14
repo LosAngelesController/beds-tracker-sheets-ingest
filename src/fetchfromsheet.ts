@@ -116,7 +116,8 @@ const rows = await sheet.getRows();
 
       arrayOfRowsInsertsToPerform.push(pgclient.query(`INSERT INTO ${generatenameoftable} 
       (lat,
-        lng, 
+        lng,
+        cd,
         spa,
         organization_name,
         projectname,
@@ -144,10 +145,12 @@ const rows = await sheet.getRows();
           $12,
           $13,
           $14,
-          $15
+          $15,
+          $16
         )`, [
         row.lat,
         row.lng,
+        row.cd,
         row.spa,
         row.organization_name,
         row.projectname,
