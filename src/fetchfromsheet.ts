@@ -110,7 +110,7 @@ const rows = await sheet.getRows();
 
     if (row.lat != null && row.lng != null && row.lat != "" && row.lng != "") {
 
-      if (!Number.isNaN(row.lat) && !Number.isNaN(row.lng) && !Number.isNaN(row.total_beds) && !Number.isNaN(row.beds_available)) {
+      if (!Number.isNaN(row.lat) && !Number.isNaN(row.lng)) {
         
     console.log(row);
 
