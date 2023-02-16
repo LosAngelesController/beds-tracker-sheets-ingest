@@ -182,7 +182,7 @@ const rows = await sheet.getRows();
 
 }
 
-fetchSheet();s
+fetchSheet();
 
 setInterval(() => {
   fetchSheet();
