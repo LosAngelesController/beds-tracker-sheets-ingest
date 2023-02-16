@@ -109,10 +109,12 @@ const rows = await sheet.getRows();
   for (const row of rows) {
 
     if (row.lat != null && row.lng != null && row.lat != "" && row.lng != "") {
-      
-    console.log(row)
 
-    console.log(row.lat)
+      if (!Number.isNaN(row.lat) && !Number.isNaN(row.lng) && !Number.isNaN(row.total_beds) && !Number.isNaN(rows.beds_available)) {
+        
+    console.log(row);
+
+    console.log(row.lat);
 
       arrayOfRowsInsertsToPerform.push(pgclient.query(`INSERT INTO ${generatenameoftable} 
       (lat,
@@ -165,6 +167,8 @@ const rows = await sheet.getRows();
         row.contact_info,
         row.website
         ]))    
+      }
+
     }
   }
 
@@ -178,9 +182,11 @@ const rows = await sheet.getRows();
 
 }
 
+fetchSheet();s
+
 setInterval(() => {
   fetchSheet();
-}, 20_000)
+}, 10_000)
 }
 
 main()
