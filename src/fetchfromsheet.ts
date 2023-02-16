@@ -167,6 +167,8 @@ const rows = await sheet.getRows();
         row.contact_info,
         row.website
         ]))    
+      } else {
+        console.log("skipped row because lat or lng is not a number", row.lat, row.lng)
       }
 
     }
