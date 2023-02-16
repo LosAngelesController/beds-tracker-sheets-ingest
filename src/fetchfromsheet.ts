@@ -103,6 +103,7 @@ async function fetchSheet() {
 const rows = await sheet.getRows();
 
 //console.log(rows);
+console.log('rows', rows.length)
 
     const arrayOfRowsInsertsToPerform:Array<any> = []
 
