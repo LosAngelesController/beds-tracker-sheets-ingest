@@ -172,6 +172,8 @@ console.log('rows', rows.length)
         console.log("skipped row because lat or lng is not a number", row.lat, row.lng)
       }
 
+    } else {
+      console.log("skipped row because lat or lng is not a number outer loop", row.lat, row.lng)
     }
   }
 
