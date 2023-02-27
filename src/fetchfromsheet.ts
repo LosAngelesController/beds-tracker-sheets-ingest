@@ -104,20 +104,24 @@ async function fetchSheet() {
 const rows = await sheet.getRows();
 
 //console.log(rows);
+console.log('rows', rows.length)
 
     const arrayOfRowsInsertsToPerform:Array<any> = []
 
   for (const row of rows) {
 
     if (row.lat != null && row.lng != null && row.lat != "" && row.lng != "") {
-      
-    console.log(row)
 
-    console.log(row.lat)
+      if (!Number.isNaN(row.lat) && !Number.isNaN(row.lng)) {
+        
+    console.log(row);
+
+    console.log(row.lat);
 
       arrayOfRowsInsertsToPerform.push(pgclient.query(`INSERT INTO ${generatenameoftable} 
       (lat,
-        lng, 
+        lng,
+        cd,
         spa,
         organization_name,
         projectname,
@@ -151,6 +155,7 @@ const rows = await sheet.getRows();
         )`, [
         row.lat,
         row.lng,
+        row.cd,
         row.spa,
         row.organization_name,
         row.projectname,
@@ -166,6 +171,12 @@ const rows = await sheet.getRows();
         row.website,
         cleannumber(row.waiting_list)
         ]))    
+      } else {
+        console.log("skipped row because lat or lng is not a number", row.lat, row.lng)
+      }
+
+    } else {
+      console.log("skipped row because lat or lng is not a number outer loop", row.lat, row.lng)
     }
   }
 
@@ -179,9 +190,11 @@ const rows = await sheet.getRows();
 
 }
 
+fetchSheet();
+
 setInterval(() => {
   fetchSheet();
-}, 20_000)
+}, 10_000)
 }
 
 main()
