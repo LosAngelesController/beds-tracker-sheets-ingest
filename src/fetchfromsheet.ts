@@ -89,7 +89,8 @@ async function fetchSheet() {
    last_updated date,
    criteria text,
    contact_info text,
-   website text
+   website text,
+   waiting_list smallint
   )`, [])
 
   console.log(maketable);
@@ -129,7 +130,8 @@ const rows = await sheet.getRows();
         last_updated,
         criteria,
         contact_info,
-        website) VALUES (
+        website,
+        waiting_list) VALUES (
           $1,
           $2,
           $3,
@@ -144,7 +146,8 @@ const rows = await sheet.getRows();
           $12,
           $13,
           $14,
-          $15
+          $15,
+          $16
         )`, [
         row.lat,
         row.lng,
@@ -160,7 +163,8 @@ const rows = await sheet.getRows();
         cleandate(row.last_updated),
         row.criteria,
         row.contact_info,
-        row.website
+        row.website,
+        cleannumber(row.waiting_list)
         ]))    
     }
   }
