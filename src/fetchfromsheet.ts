@@ -151,7 +151,8 @@ console.log('rows', rows.length)
           $13,
           $14,
           $15,
-          $16
+          $16,
+          $17
         )`, [
         row.lat,
         row.lng,
