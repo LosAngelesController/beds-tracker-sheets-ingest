@@ -38,7 +38,14 @@ function cleannumber(input) {
   if (input == " ") {
     return null;
   }
-  return input;
+
+  const number = parseInt(input);
+
+  if (!Number.isNaN(number)) {
+    return number;
+  } else {
+    return null;
+  }
 }
 
 function cleandate(input) {
