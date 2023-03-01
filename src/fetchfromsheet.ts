@@ -59,7 +59,13 @@ function cleandate(input) {
     return null;
   }
   const darr = input.split("/");
+
+  if (darr.length > 2) {
+    
   return `${darr[2]}-${darr[0]}-${darr[1]}`;
+  } else {
+    return null;
+  }
 }
 
 async function main() {
