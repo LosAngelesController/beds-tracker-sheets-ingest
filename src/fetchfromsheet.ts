@@ -139,7 +139,31 @@ async function fetchSheet() {
  // read rows
 const rows = await sheet.getRows();
 
-const hashofrows = simpleHash(JSON.stringify(rows));
+const hashofrows = simpleHash(JSON.stringify(rows.map((row) => {
+
+  return {
+    lat: row.lat,
+    lng: row.lng,
+    cd: row.cd,
+    spa: row.spa,
+    organization_name: row.organization_name,
+    projectname: row.projectname,
+    address: row.address,
+    type: row.type,
+    total_beds: row.total_beds,
+    male_available: row.male_available,
+    female_available: row.female_available,
+    beds_available: row.beds_available,
+    last_updated: row.last_updated,
+    criteria: row.criteria,
+    contact_info: row.contact_info,
+    website: row.website,
+    waiting_list: row.waiting_list,
+    iswaitlist: row.iswaitlist,
+    isnodata: row.isnodata
+  }
+
+})));
 
 let letthrough = true;
 
