@@ -79,13 +79,29 @@ function cleandate(input) {
 }
 
 function cleanbool(input) {
+
+  if (typeof input === 'string') {
+    
   var condensedstring = input.toLowerCase().replace(/\s/g, '').trim();
-  if (condensedstring == "yes" || condensedstring == "true" || condensedstring == true) {
+  if (condensedstring == "yes" || condensedstring == "true") {
     return true;
   } else {
     return false;
   }
 
+} else {
+  if (input == true) {
+    return true;
+  }
+  if (input == false) {
+    return false;
+  }
+  if (input == null) {
+    return null;
+  }
+
+  return null;
+}
   
 }
 
