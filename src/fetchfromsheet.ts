@@ -68,6 +68,17 @@ function cleandate(input) {
   }
 }
 
+function cleanbool(input) {
+  var condensedstring = input.toLowerCase().replace(/\s/g, '').trim();
+  if (condensedstring == "yes" || condensedstring == "true" || condensedstring == true) {
+    return true;
+  } else {
+    return false;
+  }
+
+  
+}
+
 async function main() {
 
   console.log('connecting to postgres...')
@@ -103,7 +114,9 @@ async function fetchSheet() {
    criteria text,
    contact_info text,
    website text,
-   waiting_list smallint
+   waiting_list smallint,
+   iswaitlist boolean,
+   isnodata boolean,
   )`, [])
 
   console.log(maketable);
@@ -148,7 +161,10 @@ console.log('rows', rows.length)
         criteria,
         contact_info,
         website,
-        waiting_list) VALUES (
+        waiting_list,
+        iswaitlist,
+        isnodata
+        ) VALUES (
           $1,
           $2,
           $3,
@@ -165,7 +181,9 @@ console.log('rows', rows.length)
           $14,
           $15,
           $16,
-          $17
+          $17,
+          $18,
+          $19
         )`, [
         row.lat,
         row.lng,
@@ -183,7 +201,9 @@ console.log('rows', rows.length)
         row.criteria,
         row.contact_info,
         row.website,
-        cleannumber(row.waiting_list)
+        cleannumber(row.waiting_list),
+        cleanbool(row.iswaitlist),
+        cleanbool(row.isnodata)
         ]))    
       } else {
         console.log("skipped row because lat or lng is not a number", row.lat, row.lng)
