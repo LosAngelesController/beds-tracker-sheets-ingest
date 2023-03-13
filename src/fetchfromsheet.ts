@@ -306,7 +306,7 @@ const maketable = await pgclient.query(`CREATE TABLE IF NOT EXISTS shelterhashin
 )`, [])
 
 //write hash to db
-const writehash = await pgclient.query(`INSERT INTO shelterhashinfo (name, hash, timeofwrite) VALUES ('main', $1, $2) ON CONFLICT (name) DO UPDATE SET hash = $1`, [hashofrows, Date.now()])
+const writehash = await pgclient.query(`INSERT INTO shelterhashinfo (name, hash, timeofwrite) VALUES ('main', $1, $2) ON CONFLICT (name) DO UPDATE SET hash = $1`, [hashofrows, new Date()])
 
 console.log("done renaming temp table to shelters");
 }
