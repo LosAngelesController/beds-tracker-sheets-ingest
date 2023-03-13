@@ -126,7 +126,7 @@ async function fetchSheet() {
    website text,
    waiting_list smallint,
    iswaitlist boolean,
-   isnodata boolean,
+   isnodata boolean
   )`, [])
 
   console.log(maketable);
