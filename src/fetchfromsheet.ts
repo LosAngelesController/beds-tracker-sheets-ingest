@@ -123,29 +123,7 @@ async function fetchSheet() {
 
   var generatenameoftable = `shelters${Date.now()}`
 
-  const maketable = await pgclient.query(`CREATE TABLE IF NOT EXISTS ${generatenameoftable} (
-   lat float8,
-   lng float8,
-   cd text,
-   spa text,
-   organization_name text,
-   projectname text,
-   address text,
-   type text,
-   total_beds smallint,
-   male_available smallint,
-   female_available smallint,
-   beds_available smallint,
-   last_updated date,
-   criteria text,
-   contact_info text,
-   website text,
-   waiting_list smallint,
-   iswaitlist boolean,
-   isnodata boolean
-  )`, [])
-
-  console.log(maketable);
+ 
 
   await doc.loadInfo()
   const sheet = doc.sheetsByIndex[0]
@@ -206,6 +184,30 @@ if (checkiftableexists?.rows[0]?.exists) {
 }
 
 if (letthrough === true) {
+
+  const maketable = await pgclient.query(`CREATE TABLE IF NOT EXISTS ${generatenameoftable} (
+    lat float8,
+    lng float8,
+    cd text,
+    spa text,
+    organization_name text,
+    projectname text,
+    address text,
+    type text,
+    total_beds smallint,
+    male_available smallint,
+    female_available smallint,
+    beds_available smallint,
+    last_updated date,
+    criteria text,
+    contact_info text,
+    website text,
+    waiting_list smallint,
+    iswaitlist boolean,
+    isnodata boolean
+   )`, [])
+ 
+   console.log(maketable);
   
 //console.log(rows);
 console.log('rows', rows.length)
@@ -299,7 +301,7 @@ console.log("done inserting to temp table");
 const dropoldtable = await pgclient.query(`BEGIN; DROP TABLE IF EXISTS shelters; ALTER TABLE ${generatenameoftable} RENAME TO shelters; COMMIT;`, [])
 
 //make table if not exists
-const maketable = await pgclient.query(`CREATE TABLE IF NOT EXISTS shelterhashinfo (
+const makehashtable = await pgclient.query(`CREATE TABLE IF NOT EXISTS shelterhashinfo (
   name text PRIMARY KEY,
   hash text,
   timeofwrite timestamp
